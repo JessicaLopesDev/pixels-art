@@ -4,6 +4,26 @@
     box-sizing: border-box;
 }
 
+header {
+    display: flex;
+}
+
+#button-random-color {
+    height: 40px;
+    padding: 4px;
+    padding: 10px;
+    border-radius: 4%;
+    font-size: 14px;
+    font-weight: 800;
+    margin-left: 68px;
+    align-self: center;
+    border: none;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+    background-color: blueviolet;
+    color: white;
+}
+
 h1 {
     padding: 20px;
 }
