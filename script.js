@@ -9,6 +9,25 @@ button.innerText = 'Cores aleatórias';
 const header = document.getElementsByTagName('header')[0];
 header.appendChild(button);
 
+const createPixels = (quantity) => {
+  const gridContainer = document.querySelector('#pixel-board');
+  console.log('gridContainer');
+
+  for (let item = 0; item < quantity; item += 1) {
+    const pixelBox = document.createElement('div');
+    pixelBox.className = 'pixel-box';
+
+    for (let index = 0; index < quantity; index += 1) {
+      const pixel = document.createElement('div');
+      pixel.className = 'pixel';
+      pixel.style.background = 'rgb(255, 255, 255)';
+      pixelBox.appendChild(pixel);
+    }
+
+    gridContainer.appendChild(pixelBox);
+  }
+};
+
 const settingStorage = (key, value) => {
   const paletteValues = JSON.parse(localStorage.getItem('colorPalette'));
 
@@ -53,6 +72,7 @@ const setConfigurationsStorage = () => {
   }
 };
 
-
-
-window.onload = setConfigurationsStorage;
+window.onload = () => {
+  setConfigurationsStorage();
+  createPixels(5);
+};

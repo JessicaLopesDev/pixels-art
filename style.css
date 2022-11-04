@@ -2,10 +2,12 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: sans-serif;
 }
 
 header {
     display: flex;
+    justify-content: space-around;
 }
 
 #button-random-color {
@@ -15,7 +17,6 @@ header {
     border-radius: 4%;
     font-size: 14px;
     font-weight: 800;
-    margin-left: 68px;
     align-self: center;
     border: none;
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
@@ -29,14 +30,30 @@ h1 {
 }
 
 #color-palette {
-    width: 50%;
-    height: 100px;
     display: flex;
+    justify-content: center;
 }
 
 .color {
-    height: 100px;
-    width: 100px;
+    height: 40px;
+    width: 40px;
     border: solid 1px black;
-    margin: 0 0 0 20px;
+    margin: 0 10px 0 10px;
+}
+
+#pixel-board {
+    width: 100%;
+    margin-top: 30px;
+
+}
+
+.pixel-box {
+    display: flex;
+    justify-content: center;
+}
+
+.pixel {
+    width: 40px;
+    height: 40px;
+    border: solid 1px black;
 }
