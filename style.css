@@ -1,0 +1,22 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    padding: 20px;
+}
+
+#color-palette {
+    width: 50%;
+    height: 100px;
+    display: flex;
+}
+
+.color {
+    height: 100px;
+    width: 100px;
+    border: solid 1px black;
+    margin: 0 0 0 20px;
+}
