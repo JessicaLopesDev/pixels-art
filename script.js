@@ -1,7 +1,7 @@
 /* eslint-disable radix */
 const colors = document.querySelectorAll('.color');
 colors[0].style.background = 'black';
-colors[0].className = 'color selected';
+colors[0].classList.add('selected');
 
 const button = document.createElement('button');
 button.id = 'button-random-color';
@@ -73,7 +73,29 @@ const setConfigurationsStorage = () => {
   }
 };
 
-window.onload = () => {
-  setConfigurationsStorage();
-  createPixels(5);
+setConfigurationsStorage();
+createPixels(5);
+
+const selectColor = ({ target }) => {
+  const selectedElement = document.querySelector('.selected');
+  selectedElement.classList.remove('selected');
+  target.classList.add('selected');
 };
+
+for (let item = 0; item < colors.length; item += 1) {
+  colors[item].addEventListener('click', selectColor);
+}
+
+const paintPixel = ({ target }) => {
+  const selectedElement = document.querySelector('.selected');
+  const colorSelected = selectedElement.style.background;
+  target.style.background = colorSelected;
+};
+
+const pixels = document.querySelectorAll('.pixel');
+
+console.log(pixels);
+for (let item = 0; item < pixels.length; item += 1) {
+  pixels[item].addEventListener('click', paintPixel);
+}
+
