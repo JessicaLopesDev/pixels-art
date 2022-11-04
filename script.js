@@ -1,6 +1,7 @@
 /* eslint-disable radix */
 const colors = document.querySelectorAll('.color');
 colors[0].style.background = 'black';
+colors[0].className = 'color selected';
 
 const button = document.createElement('button');
 button.id = 'button-random-color';
