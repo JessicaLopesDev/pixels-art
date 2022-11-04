@@ -3,12 +3,19 @@ const colors = document.querySelectorAll('.color');
 colors[0].style.background = 'black';
 colors[0].classList.add('selected');
 
-const button = document.createElement('button');
-button.id = 'button-random-color';
-button.innerText = 'Cores aleatórias';
+const randomColorButton = document.createElement('button');
+randomColorButton.id = 'button-random-color';
+randomColorButton.innerText = 'Cores aleatórias';
+
+const clearPixelsButton = document.createElement('button');
+clearPixelsButton.id = 'clear-board';
+clearPixelsButton.innerText = 'Limpar';
+
+const clearButtonContainer = document.querySelector('#clear-button-container');
+clearButtonContainer.appendChild(clearPixelsButton);
 
 const header = document.getElementsByTagName('header')[0];
-header.appendChild(button);
+header.appendChild(randomColorButton);
 
 const createPixels = (quantity) => {
   const gridContainer = document.querySelector('#pixel-board');
@@ -59,7 +66,7 @@ const randomColors = () => {
   }
 };
 
-button.addEventListener('click', randomColors);
+randomColorButton.addEventListener('click', randomColors);
 
 const setConfigurationsStorage = () => {
   const paletteValues = JSON.parse(localStorage.getItem('colorPalette'));
@@ -86,16 +93,22 @@ for (let item = 0; item < colors.length; item += 1) {
   colors[item].addEventListener('click', selectColor);
 }
 
+const pixels = document.querySelectorAll('.pixel');
+
 const paintPixel = ({ target }) => {
   const selectedElement = document.querySelector('.selected');
   const colorSelected = selectedElement.style.background;
   target.style.background = colorSelected;
 };
 
-const pixels = document.querySelectorAll('.pixel');
-
-console.log(pixels);
 for (let item = 0; item < pixels.length; item += 1) {
   pixels[item].addEventListener('click', paintPixel);
 }
 
+const handleClearPixels = () => {
+  for (let item = 0; item < pixels.length; item += 1) {
+    pixels[item].style.background = 'rgb(255, 255, 255)';
+  }
+};
+
+clearPixelsButton.addEventListener('click', handleClearPixels);
