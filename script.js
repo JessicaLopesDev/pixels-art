@@ -160,16 +160,20 @@ const handleClearPixels = () => {
 
 clearPixelsButton.addEventListener('click', handleClearPixels);
 
+const nnn = (values, index) => {
+  for (let index2 = 0; index2 < values.length; index2 += 1) {
+    if (index === values[index2].index) {
+      pixels[index].style.background = values[index2].color;
+    }
+  }
+};
+
 const handleSavedPixelsColors = () => {
   const pixelsValues = JSON.parse(localStorage.getItem('pixelBoard'));
 
   if (pixelsValues) {
     for (let index = 0; index < pixels.length; index += 1) {
-      for (let index2 = 0; index2 < pixelsValues.length; index2 += 1) {
-        if (index === pixelsValues[index2].index) {
-          pixels[index].style.background = pixelsValues[index2].color;
-        }
-      }
+      nnn(pixelsValues, index);
     }
   }
 };
