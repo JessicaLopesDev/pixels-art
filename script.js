@@ -47,6 +47,7 @@ const createPixels = (quantity) => {
 
     gridContainer.appendChild(pixelBox);
   }
+  localStorage.setItem('boardSize', quantity);
 };
 
 const settingPaletteStorage = (key, value) => {
@@ -114,6 +115,17 @@ const setConfigurationsStorage = () => {
 setConfigurationsStorage();
 createPixels(5);
 
+// const validatePixelSize = () => {
+//   const boardSizeValue = localStorage.getItem('boardSize');
+
+//   if (boardSizeValue) {
+//     createPixels(Number(boardSizeValue));
+//   } else {
+//   }
+// };
+
+// validatePixelSize();
+
 const selectColor = ({ target }) => {
   const selectedElement = document.querySelector('.selected');
   selectedElement.classList.remove('selected');
@@ -173,6 +185,7 @@ const handlePixelsSize = () => {
   }
 
   gridContainer.innerHTML = '';
+  localStorage.removeItem('pixelBoard');
 
   if (input.value < 5) {
     createPixels(5);
