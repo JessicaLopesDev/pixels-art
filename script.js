@@ -14,12 +14,25 @@ clearPixelsButton.innerText = 'Limpar';
 const clearButtonContainer = document.querySelector('#clear-button-container');
 clearButtonContainer.appendChild(clearPixelsButton);
 
+const input = document.createElement('input');
+input.id = 'board-size';
+input.placeholder = 'Número de pixels';
+input.setAttribute('type', 'number');
+input.setAttribute('min', '1');
+
+const pixelsSizeButton = document.createElement('button');
+pixelsSizeButton.id = 'generate-board';
+pixelsSizeButton.innerText = 'VQV';
+
+const inputContainer = document.querySelector('#input-container');
+inputContainer.appendChild(input);
+inputContainer.appendChild(pixelsSizeButton);
+
 const header = document.getElementsByTagName('header')[0];
 header.appendChild(randomColorButton);
 
 const createPixels = (quantity) => {
   const gridContainer = document.querySelector('#pixel-board');
-  console.log('gridContainer');
 
   for (let item = 0; item < quantity; item += 1) {
     const pixelBox = document.createElement('div');
@@ -36,7 +49,7 @@ const createPixels = (quantity) => {
   }
 };
 
-const settingStorage = (key, value) => {
+const settingPaletteStorage = (key, value) => {
   const paletteValues = JSON.parse(localStorage.getItem('colorPalette'));
 
   if (paletteValues) {
@@ -51,6 +64,24 @@ const settingStorage = (key, value) => {
   }
 };
 
+const settingPixelsStorage = (color, index) => {
+  const pixelsValues = JSON.parse(localStorage.getItem('pixelBoard'));
+
+  const pixelSavedColor = {
+    color,
+    index,
+  };
+
+  if (pixelsValues) {
+    localStorage.setItem('pixelBoard', JSON.stringify([
+      ...pixelsValues,
+      pixelSavedColor,
+    ]));
+  } else {
+    localStorage.setItem('pixelBoard', JSON.stringify([pixelSavedColor]));
+  }
+};
+
 const colorGenerate = () => {
   const red = parseInt(Math.random() * 255);
   const green = parseInt(Math.random() * 255);
@@ -62,7 +93,7 @@ const colorGenerate = () => {
 const randomColors = () => {
   for (let item = 1; item < colors.length; item += 1) {
     colors[item].style.background = colorGenerate();
-    settingStorage(`colorPalette${item}`, colors[item].style.background);
+    settingPaletteStorage(`colorPalette${item}`, colors[item].style.background);
   }
 };
 
@@ -95,20 +126,61 @@ for (let item = 0; item < colors.length; item += 1) {
 
 const pixels = document.querySelectorAll('.pixel');
 
-const paintPixel = ({ target }) => {
+const paintPixel = (target, index) => {
   const selectedElement = document.querySelector('.selected');
   const colorSelected = selectedElement.style.background;
   target.style.background = colorSelected;
+
+  settingPixelsStorage(colorSelected, index);
 };
 
-for (let item = 0; item < pixels.length; item += 1) {
-  pixels[item].addEventListener('click', paintPixel);
+for (let index = 0; index < pixels.length; index += 1) {
+  pixels[index].addEventListener('click', ({ target }) => paintPixel(target, index));
 }
 
 const handleClearPixels = () => {
   for (let item = 0; item < pixels.length; item += 1) {
     pixels[item].style.background = 'rgb(255, 255, 255)';
   }
+
+  localStorage.removeItem('pixelBoard');
 };
 
 clearPixelsButton.addEventListener('click', handleClearPixels);
+
+const handleSavedPixelsColors = () => {
+  const pixelsValues = JSON.parse(localStorage.getItem('pixelBoard'));
+
+  if (pixelsValues) {
+    for (let index = 0; index < pixels.length; index += 1) {
+      for (let index2 = 0; index2 < pixelsValues.length; index2 += 1) {
+        if (index === pixelsValues[index2].index) {
+          pixels[index].style.background = pixelsValues[index2].color;
+        }
+      }
+    }
+  }
+};
+
+handleSavedPixelsColors();
+
+const handlePixelsSize = () => {
+  const gridContainer = document.querySelector('#pixel-board');
+
+  if (input.value < 1) {
+    alert('Board inválido!');
+    return;
+  }
+
+  gridContainer.innerHTML = '';
+
+  if (input.value < 5) {
+    createPixels(5);
+  } else if (input.value > 50) {
+    createPixels(50);
+  } else {
+    createPixels(input.value);
+  }
+};
+
+pixelsSizeButton.addEventListener('click', handlePixelsSize);
