@@ -1,4 +1,3 @@
-/* eslint-disable radix */
 const colors = document.querySelectorAll('.color');
 colors[0].style.background = 'black';
 colors[0].classList.add('selected');
@@ -84,9 +83,9 @@ const settingPixelsStorage = (color, index) => {
 };
 
 const colorGenerate = () => {
-  const red = parseInt(Math.random() * 255);
-  const green = parseInt(Math.random() * 255);
-  const blue = parseInt(Math.random() * 255);
+  const red = parseInt(Math.random() * 255, 10);
+  const green = parseInt(Math.random() * 255, 10);
+  const blue = parseInt(Math.random() * 255, 10);
 
   return `rgba(${red}, ${green}, ${blue}, ${1})`;
 };
@@ -139,9 +138,10 @@ for (let item = 0; item < colors.length; item += 1) {
 const pixels = document.querySelectorAll('.pixel');
 
 const paintPixel = (target, index) => {
+  const pixel = target;
   const selectedElement = document.querySelector('.selected');
   const colorSelected = selectedElement.style.background;
-  target.style.background = colorSelected;
+  pixel.style.background = colorSelected;
 
   settingPixelsStorage(colorSelected, index);
 };

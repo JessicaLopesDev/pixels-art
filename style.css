@@ -40,7 +40,7 @@ h1 {
   height: 40px;
   width: 40px;
   border: solid 1px black;
-  margin: 0 10px 0 10px;
+  margin: 0 10px;
 }
 
 #clear-button-container {
@@ -59,7 +59,7 @@ h1 {
   border: none;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
   cursor: pointer;
-  background-color: rgb(226, 189, 189)
+  background-color: rgb(226, 189, 189);
 }
 
 #pixel-board {
